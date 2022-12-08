@@ -1,6 +1,6 @@
-package com.github.lilittlecat.intellijchatgpt.services
+package com.github.lilittlecat.chatgpt.services
 
-import com.github.lilittlecat.intellijchatgpt.MyBundle
+import com.github.lilittlecat.chatgpt.MyBundle
 
 class MyApplicationService {
 

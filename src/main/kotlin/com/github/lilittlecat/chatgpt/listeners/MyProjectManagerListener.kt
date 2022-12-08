@@ -1,9 +1,9 @@
-package com.github.lilittlecat.intellijchatgpt.listeners
+package com.github.lilittlecat.chatgpt.listeners
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
-import com.github.lilittlecat.intellijchatgpt.services.MyProjectService
+import com.github.lilittlecat.chatgpt.services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 

@@ -1,4 +1,4 @@
-package com.github.lilittlecat.intellijchatgpt
+package com.github.lilittlecat.chatgpt
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
