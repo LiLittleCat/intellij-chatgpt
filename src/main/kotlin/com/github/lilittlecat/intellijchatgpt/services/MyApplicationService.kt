@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.lilittlecat.intellijchatgpt.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.lilittlecat.intellijchatgpt.MyBundle
 
 class MyApplicationService {
 
