@@ -1,6 +1,6 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.lilittlecat.intellij-chatgpt</id>
+    <id>com.lilittlecat.intellij-chatgpt</id>
     <name>ChatGPT</name>
     <vendor email="lilittlecat@qq.com" url="https://github.com/LiLittleCat/intellij-generate-all-getter-and-setter">
         LiLittleCat
@@ -9,12 +9,12 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.lilittlecat.chatgpt.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.lilittlecat.chatgpt.services.MyProjectService"/>
+        <toolWindow factoryClass="com.lilittlecat.chatgpt.window.ChatGPTToolWindowFactory" id="ChatGPT" anchor="right"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
+                id="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
+                displayName="ChatGPT"/>
+        <applicationService serviceImplementation="com.lilittlecat.chatgpt.setting.ChatGPTSettingsState"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.lilittlecat.chatgpt.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
