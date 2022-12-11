@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>com.lilittlecat.intellij-chatgpt</id>
     <name>ChatGPT Tool</name>
-    <vendor email="lilittlecat@qq.com" url="https://github.com/LiLittleCat/intellij-generate-all-getter-and-setter">
+    <vendor email="lilittlecat@qq.com" url="https://github.com/LiLittleCat">
         LiLittleCat
     </vendor>
 
