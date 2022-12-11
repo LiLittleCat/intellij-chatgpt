@@ -1,6 +1,6 @@
 <img src="src/main/resources/META-INF/pluginIcon.svg" align="right" width="128" height="128" alt="icon"/>
 
-# ChatGPT
+# ChatGPT Tool
 
 ![Build](https://github.com/LiLittleCat/intellij-chatgpt/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
