@@ -1,26 +1,11 @@
 package com.lilittlecat.chatgpt.window;
 
 
-import com.intellij.ide.ui.search.SearchUtil;
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurableGroup;
-import com.intellij.openapi.options.SearchableConfigurable;
-import com.intellij.openapi.options.ShowSettingsUtil;
-import com.intellij.openapi.options.ex.ConfigurableExtensionPointUtil;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
-import com.intellij.ui.jcef.*;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.HttpCookie;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable;
+import com.intellij.ui.jcef.JBCefApp;
+import com.intellij.ui.jcef.JBCefBrowser;
+import com.intellij.ui.jcef.JBCefCookie;
+import com.intellij.ui.jcef.JBCefCookieManager;
 import com.lilittlecat.chatgpt.setting.ChatGPTSettingsState;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -30,11 +15,16 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.cef.browser.CefBrowser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -45,9 +35,8 @@ import javax.swing.*;
 public class ChatGPTToolWindow extends SimpleToolWindowPanel {
     private static final Logger LOG = LoggerFactory.getLogger(ChatGPTToolWindow.class);
 
-    private JPanel content;
+    private final JPanel content;
 
-    private final String url = "https://chat.openai.com";
     private final String sessionTokenName = "__Secure-next-auth.session-token";
 
     ThreadPoolExecutor executor = new ThreadPoolExecutor(
@@ -84,9 +73,7 @@ public class ChatGPTToolWindow extends SimpleToolWindowPanel {
                     String bodyString = EntityUtils.toString(httpEntity);
                     if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK && !bodyString.contains("Welcome to ChatGPT")) {
                         JBCefCookie jbCefCookie = new JBCefCookie(sessionTokenName, sessionToken, "chat.openai.com", "/", true, true);
-                        jbCefCookieManager.setCookie(url, jbCefCookie);
-                    } else {
-
+                        jbCefCookieManager.setCookie("https://chat.openai.com", jbCefCookie);
                     }
                 } catch (IOException e) {
                     LOG.error("Error when check session token: ", e);

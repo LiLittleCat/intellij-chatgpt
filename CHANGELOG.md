@@ -1,7 +1,9 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# ChatGPT Changelog
+# intellij-chatgpt Changelog
 
 ## [Unreleased]
+
+## [1.0.0]
 ### Added
-- 
+- Support all JetBrains IDEs

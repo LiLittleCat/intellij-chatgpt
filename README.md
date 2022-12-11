@@ -1,27 +1,24 @@
+<img src="src/main/resources/META-INF/pluginIcon.svg" align="right" width="128" height="128" alt="icon"/>
+
 # ChatGPT
 
 ![Build](https://github.com/LiLittleCat/intellij-chatgpt/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
-
+[中文说明](README_CN.md)
 
 A [ChatGPT](https://chat.openai.com/) plugin for IntelliJ Platform-Based IDEs.
 
+## Feature
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
-
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
-
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
+🚀 Easy to use, without annoyingly token copy, just login once and you are ready to go.
 
 ## Installation
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "intellij-chatgpt"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "ChatGPT"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
@@ -30,7 +27,16 @@ To keep everything working, do not remove `<!-- ... -->` sections.
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
+## Usage
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
+1. Register a [OpenAI](https://beta.openai.com/signup) account.
+2. Open tool window "ChatGPT", login is required for the first time:
+![](/image/login.png)
+3. Just ask ChatGPT anything you want:
+![](/image/use.png)
+
+> **Note**
+After your login, your session token is saved in Settings. The first time use it, you can set it with a valid session token so that you don't have to log in.
+You can also copy this session token for other usage, like use another ChatGPT client which require token.
+> ![](/image/settings.png)
+
