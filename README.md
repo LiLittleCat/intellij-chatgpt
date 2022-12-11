@@ -18,7 +18,7 @@ A [ChatGPT](https://chat.openai.com/) plugin for IntelliJ Platform-Based IDEs.
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "ChatGPT"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "ChatGPT Tool"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:

@@ -16,7 +16,7 @@
 
 - 使用 IDE 内部插件系统：
 
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd> 搜索 "ChatGPT"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd> 搜索 "ChatGPT Tool"</kbd> >
   <kbd>Install Plugin</kbd>
 
 - 手动安装：
