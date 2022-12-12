@@ -3,8 +3,6 @@
 # intellij-chatgpt Changelog
 
 ## [Unreleased]
-
-## [1.0.1]
 ### Added
 - Update plugin description
 
