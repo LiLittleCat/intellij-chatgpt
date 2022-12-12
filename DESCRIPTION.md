@@ -13,7 +13,7 @@ A [ChatGPT](https://chat.openai.com/) plugin for IntelliJ Platform-Based IDEs.
 2. Open tool window "ChatGPT", login is required for the first time.
 3. Just ask ChatGPT anything you want.
 
-[Github](https://github.com/LiLittleCat/ChatGPT) 
+[Github](https://github.com/LiLittleCat/intellij-chatgpt) 
 
 
 ---
@@ -30,6 +30,6 @@ A [ChatGPT](https://chat.openai.com/) plugin for IntelliJ Platform-Based IDEs.
 3. 输入你想问的问题。
 
 
-[Github](https://github.com/LiLittleCat/ChatGPT)
+[Github](https://github.com/LiLittleCat/intellij-chatgpt)
 
 <!-- Plugin description end -->
