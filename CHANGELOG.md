@@ -3,6 +3,9 @@
 # intellij-chatgpt Changelog
 
 ## [Unreleased]
+- Remove session token check because of Cloudflare
+- Add refresh button [#2](https://github.com/LiLittleCat/intellij-chatgpt/issues/2)
+- Support version 2020.2-2022.3 [#3](https://github.com/LiLittleCat/intellij-chatgpt/issues/3)
 
 ## [1.0.1] - 2022-12-12
 
