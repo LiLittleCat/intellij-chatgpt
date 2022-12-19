@@ -36,7 +36,6 @@ A [ChatGPT](https://chat.openai.com/) plugin for IntelliJ Platform-Based IDEs.
 ![](/image/use.png)
 
 > **Note**
-After your login, your session token is saved in Settings. The first time use it, you can set it with a valid session token so that you don't have to log in.
-You can also copy this session token for other usage, like use another ChatGPT client which require token.
+After your login, your session token is saved in Settings. The first time uses it, you can set it with a valid session token so that you don't have to log in. You can also copy this session token for other usages, like using another ChatGPT client who requires a token.
 > ![](/image/settings.png)
 
