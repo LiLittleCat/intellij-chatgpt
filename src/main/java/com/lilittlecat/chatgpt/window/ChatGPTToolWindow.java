@@ -6,6 +6,7 @@ import com.intellij.ui.jcef.JBCefApp;
 import com.intellij.ui.jcef.JBCefBrowser;
 import com.intellij.ui.jcef.JBCefCookie;
 import com.intellij.ui.jcef.JBCefCookieManager;
+import com.lilittlecat.chatgpt.message.ChatGPTBundle;
 import com.lilittlecat.chatgpt.setting.ChatGPTSettingsState;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -45,7 +46,7 @@ public class ChatGPTToolWindow extends SimpleToolWindowPanel {
         super(true, false);
         this.content = new JPanel(new BorderLayout());
         if (!JBCefApp.isSupported()) {
-            this.content.add(new JLabel("Not supported. Please check your IDE version.", SwingConstants.CENTER));
+            this.content.add(new JLabel(ChatGPTBundle.message("jBCefApp.not.supported"), SwingConstants.CENTER));
             return;
         }
         JBCefBrowser jbCefBrowser = new JBCefBrowser();
