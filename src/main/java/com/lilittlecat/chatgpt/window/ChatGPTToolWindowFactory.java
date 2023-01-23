@@ -23,6 +23,7 @@ public class ChatGPTToolWindowFactory implements ToolWindowFactory {
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         ContentManager contentManager = toolWindow.getContentManager();
+        @SuppressWarnings("DialogTitleCapitalization")
         Content labelContent = contentManager.getFactory().createContent(
                 new ChatGPTToolWindow().getContent(), ChatGPTBundle.message("browser.tab.name"), false);
         contentManager.addContent(labelContent);
