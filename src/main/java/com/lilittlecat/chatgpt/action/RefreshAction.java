@@ -28,7 +28,7 @@ public class RefreshAction extends DumbAwareAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         ToolWindowManager instance = ToolWindowManager.getInstance(Objects.requireNonNull(e.getProject()));
-        ToolWindow toolWindow = instance.getToolWindow("ChatGPT");
+        ToolWindow toolWindow = instance.getToolWindow(ChatGPTBundle.message("name"));
         if (toolWindow != null) {
             ContentManager contentManager = toolWindow.getContentManager();
             Content browserContent = contentManager.findContent(ChatGPTBundle.message("browser.tab.name"));
@@ -36,6 +36,7 @@ public class RefreshAction extends DumbAwareAction {
                 contentManager.removeContent(browserContent, false);
             }
             ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+            @SuppressWarnings("DialogTitleCapitalization")
             Content browser = contentFactory.createContent(new ChatGPTToolWindow().getContent(),
                     ChatGPTBundle.message("browser.tab.name"), false);
             contentManager.addContent(browser);
