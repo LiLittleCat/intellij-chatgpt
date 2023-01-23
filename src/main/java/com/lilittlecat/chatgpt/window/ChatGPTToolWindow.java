@@ -45,7 +45,7 @@ public class ChatGPTToolWindow extends SimpleToolWindowPanel {
         super(true, false);
         this.content = new JPanel(new BorderLayout());
         if (!JBCefApp.isSupported()) {
-            this.content.add(new JLabel("Not Support, Please Check you IDE version.", SwingConstants.CENTER));
+            this.content.add(new JLabel("Not supported. Please check your IDE version.", SwingConstants.CENTER));
             return;
         }
         JBCefBrowser jbCefBrowser = new JBCefBrowser();
