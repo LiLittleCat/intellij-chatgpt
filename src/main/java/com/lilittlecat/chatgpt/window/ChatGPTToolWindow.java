@@ -75,7 +75,7 @@ public class ChatGPTToolWindow extends SimpleToolWindowPanel {
 //                    String bodyString = EntityUtils.toString(httpEntity);
 //                    if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK && !bodyString.contains("Welcome to ChatGPT")) {
                 JBCefCookie jbCefCookie = new JBCefCookie(sessionTokenName, sessionToken, "chat.openai.com", "/", true, true);
-                jbCefCookieManager.setCookie("https://chat.openai.com", jbCefCookie, null);
+                jbCefCookieManager.setCookie("https://chat.openai.com", jbCefCookie, 10000);
 //                    }
 //                } catch (IOException e) {
 //                    LOG.error("Error when check session token: ", e);
