@@ -3,6 +3,7 @@
 # intellij-chatgpt Changelog
 
 ## [Unreleased]
+- Fix bugs
 
 ## [1.0.2] - 2022-12-16
 - Remove session token check because of Cloudflare
