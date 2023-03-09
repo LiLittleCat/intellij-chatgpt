@@ -37,7 +37,7 @@ public class RefreshAction extends DumbAwareAction {
             }
             ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
             @SuppressWarnings("DialogTitleCapitalization")
-            Content browser = contentFactory.createContent(new ChatGPTToolWindow().getContent(),
+            Content browser = contentFactory.createContent(new ChatGPTToolWindow("https://baidu.com").getContent(),
                     ChatGPTBundle.message("browser.tab.name"), false);
             contentManager.addContent(browser);
             contentManager.setSelectedContent(browser);

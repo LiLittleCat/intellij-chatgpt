@@ -1,6 +1,7 @@
 package com.lilittlecat.chatgpt.setting;
 
 import com.intellij.ui.components.JBLabel;
+import com.intellij.ui.components.JBList;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
 import com.intellij.util.ui.FormBuilder;
@@ -17,6 +18,8 @@ import javax.swing.*;
 public class ChatGPTSettingsComponent {
     private final JPanel myMainPanel;
     private final JBTextArea sessionToken = new JBTextArea();
+
+    private JBList<String> urlList;
 
     public ChatGPTSettingsComponent() {
         sessionToken.setFont(UIUtil.getLabelFont());
