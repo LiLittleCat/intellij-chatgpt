@@ -9,12 +9,12 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.lilittlecat.chatgpt.window.ChatGPTToolWindowFactory" icon="/icons/openai.svg" id="ChatGPT" anchor="right"/>
+        <toolWindow factoryClass="com.lilittlecat.chatgpt.window.ChatGPTToolWindowFactory" icon="/icons/openai.svg" id="ChatGPT Tool" anchor="right" canCloseContents="true"/>
         <applicationConfigurable
                 parentId="tools"
                 instance="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
                 id="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
-                displayName="ChatGPT"/>
+                displayName="ChatGPT Tool"/>
         <applicationService serviceImplementation="com.lilittlecat.chatgpt.setting.ChatGPTSettingsState"/>
     </extensions>
 </idea-plugin>

@@ -8,6 +8,9 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author LiLittleCat
  * @link <a href="https://github.com/LiLittleCat">https://github.com/LiLittleCat</a>
@@ -20,6 +23,10 @@ import org.jetbrains.annotations.Nullable;
 public class ChatGPTSettingsState implements PersistentStateComponent<ChatGPTSettingsState> {
     public String sessionToken = "";
 
+    public String defaultUrl = "";
+
+    public List<String> urlList = new ArrayList<>();
+
     @Nullable
     @Override
     public ChatGPTSettingsState getState() {
@@ -31,8 +38,16 @@ public class ChatGPTSettingsState implements PersistentStateComponent<ChatGPTSet
         XmlSerializerUtil.copyBean(state, this);
     }
 
-    public void update(String sessionToken) {
+    public void setSessionToken(String sessionToken) {
         this.sessionToken = sessionToken;
+    }
+
+    public void setDefaultUrl(String defaultUrl) {
+        this.defaultUrl = defaultUrl;
+    }
+
+    public void setUrlList(List<String> urlList) {
+        this.urlList = urlList;
     }
 
     public static ChatGPTSettingsState getInstance() {
