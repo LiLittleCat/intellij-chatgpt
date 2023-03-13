@@ -8,9 +8,12 @@ import javax.swing.*;
  */
 public class Test {
     private JPanel myMainPanel;
-    private JTextField sessionToken;
-    private JComboBox comboBox1;
-    private JList list1;
-    private JButton button1;
+    private JPanel officialWebsiteTitle;
+    private JPanel thirdPartyWebsiteTitle;
+    private JTextField textField1;
+    private JComboBox defaultWebsite;
+    private JTable thirdPartyWebsiteTable;
+    private JButton updateButton;
+    private JButton testButton;
     private JSpinner spinner1;
 }

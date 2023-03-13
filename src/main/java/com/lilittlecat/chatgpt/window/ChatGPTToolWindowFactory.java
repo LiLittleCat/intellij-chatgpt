@@ -28,7 +28,7 @@ public class ChatGPTToolWindowFactory implements ToolWindowFactory {
         ContentManager contentManager = toolWindow.getContentManager();
         @SuppressWarnings("DialogTitleCapitalization")
         Content labelContent = contentManager.getFactory().createContent(
-                new ChatGPTToolWindow("https://baidu.com").getContent(), ChatGPTBundle.message("browser.tab.name"), false);
+                new ChatGPTToolWindow(ChatGPTBundle.message("default.url")).getContent(), ChatGPTBundle.message("browser.tab.name"), false);
         contentManager.addContent(labelContent);
         contentManager.addContentManagerListener(new ContentManagerListener() {
                                                      @Override
@@ -36,7 +36,7 @@ public class ChatGPTToolWindowFactory implements ToolWindowFactory {
                                                          // when all tabs are closed, add a new tab
                                                             if (contentManager.getContentCount() == 0) {
                                                                 Content labelContent = contentManager.getFactory().createContent(
-                                                                        new ChatGPTToolWindow("https://baidu.com").getContent(), ChatGPTBundle.message("browser.tab.name"), false);
+                                                                        new ChatGPTToolWindow(ChatGPTBundle.message("default.url")).getContent(), ChatGPTBundle.message("browser.tab.name"), false);
                                                                 contentManager.addContent(labelContent);
                                                             }
                                                      }

@@ -44,60 +44,60 @@ public class ChatGPTToolWindow extends SimpleToolWindowPanel {
         }
         JBCefBrowser jbCefBrowser = new JBCefBrowser();
         this.content.add(jbCefBrowser.getComponent(), BorderLayout.CENTER);
-        JBCefCookieManager jbCefCookieManager = new JBCefCookieManager();
-        if (url.equals(ChatGPTBundle.message("default.url"))) {
-            // find if there is session token in settings
-            ChatGPTSettingsState state = ChatGPTSettingsState.getInstance().getState();
-            if (state != null) {
-                String sessionToken = state.sessionToken;
-                if (StringUtils.isNotBlank(sessionToken)) {
-                    // check the token is right or not
-
-                    // 2022.12.16 with Cloudflare, can not check token by http get
-
-//                String cookie = sessionTokenName + "=" + sessionToken;
-//                HttpGet httpGet = new HttpGet("https://chat.openai.com/chat");
-//                httpGet.setHeader("Connection", "keep-alive");
-//                httpGet.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15");
-//                httpGet.setHeader("Cookie", cookie);
-//                httpGet.setHeader("Origin", "https://auth0.openai.com");
-//                httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-//                httpGet.setHeader("Accept-Language", "en-US,en;q=0.9");
-//                try (CloseableHttpClient httpClient = HttpClients.createDefault();
-//                     CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
-//                    HttpEntity httpEntity = httpResponse.getEntity();
-//                    String bodyString = EntityUtils.toString(httpEntity);
-//                    if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK && !bodyString.contains("Welcome to ChatGPT")) {
-                    JBCefCookie jbCefCookie = new JBCefCookie(sessionTokenName, sessionToken, "chat.openai.com", "/", true, true);
-                    jbCefCookieManager.setCookie("https://chat.openai.com", jbCefCookie, 10000);
-//                    }
-//                } catch (IOException e) {
-//                    LOG.error("Error when check session token: ", e);
+//        JBCefCookieManager jbCefCookieManager = new JBCefCookieManager();
+//        if (url.equals(ChatGPTBundle.message("default.url"))) {
+//            // find if there is session token in settings
+//            ChatGPTSettingsState state = ChatGPTSettingsState.getInstance().getState();
+//            if (state != null) {
+//                String sessionToken = state.sessionToken;
+//                if (StringUtils.isNotBlank(sessionToken)) {
+//                    // check the token is right or not
+//
+//                    // 2022.12.16 with Cloudflare, can not check token by http get
+//
+////                String cookie = sessionTokenName + "=" + sessionToken;
+////                HttpGet httpGet = new HttpGet("https://chat.openai.com/chat");
+////                httpGet.setHeader("Connection", "keep-alive");
+////                httpGet.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15");
+////                httpGet.setHeader("Cookie", cookie);
+////                httpGet.setHeader("Origin", "https://auth0.openai.com");
+////                httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+////                httpGet.setHeader("Accept-Language", "en-US,en;q=0.9");
+////                try (CloseableHttpClient httpClient = HttpClients.createDefault();
+////                     CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
+////                    HttpEntity httpEntity = httpResponse.getEntity();
+////                    String bodyString = EntityUtils.toString(httpEntity);
+////                    if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK && !bodyString.contains("Welcome to ChatGPT")) {
+//                    JBCefCookie jbCefCookie = new JBCefCookie(sessionTokenName, sessionToken, "chat.openai.com", "/", true, true);
+//                    jbCefCookieManager.setCookie("https://chat.openai.com", jbCefCookie, 10000);
+////                    }
+////                } catch (IOException e) {
+////                    LOG.error("Error when check session token: ", e);
+////                }
 //                }
-                }
-            }
-            // get session token after login, fill it in settings
-            // fill it every login, in case invalid session token cause can't login problem
-            executor.execute(() -> {
-                String currentSessionToken = null;
-                while (currentSessionToken == null) {
-                    List<JBCefCookie> cookies = jbCefCookieManager.getCookies();
-                    if (!cookies.isEmpty()) {
-                        for (JBCefCookie cookie : cookies) {
-                            if (cookie.getName().equals(sessionTokenName)) {
-                                currentSessionToken = cookie.getValue();
-                                ChatGPTSettingsState.getInstance().setSessionToken(currentSessionToken);
-                            }
-                        }
-                    }
-                    try {
-                        Thread.sleep(1000L);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-        }
+//            }
+//            // get session token after login, fill it in settings
+//            // fill it every login, in case invalid session token cause can't login problem
+//            executor.execute(() -> {
+//                String currentSessionToken = null;
+//                while (currentSessionToken == null) {
+//                    List<JBCefCookie> cookies = jbCefCookieManager.getCookies();
+//                    if (!cookies.isEmpty()) {
+//                        for (JBCefCookie cookie : cookies) {
+//                            if (cookie.getName().equals(sessionTokenName)) {
+//                                currentSessionToken = cookie.getValue();
+//                                ChatGPTSettingsState.getInstance().setSessionToken(currentSessionToken);
+//                            }
+//                        }
+//                    }
+//                    try {
+//                        Thread.sleep(1000L);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//            });
+//        }
         jbCefBrowser.loadURL(url);
     }
 
