@@ -9,8 +9,7 @@ import org.jetbrains.annotations.PropertyKey;
 import java.util.function.Supplier;
 
 /**
- * @author LiLittleCat
- * @link <a href="https://github.com/LiLittleCat">https://github.com/LiLittleCat</a>
+ * @author <a href="https://github.com/LiLittleCat">LiLittleCat</a>
  * @since 2022/12/10
  */
 public class ChatGPTBundle extends DynamicBundle {

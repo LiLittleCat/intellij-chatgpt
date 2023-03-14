@@ -48,7 +48,8 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     @Override
     public boolean isModified() {
         ChatGPTSettingsState settings = ChatGPTSettingsState.getInstance();
-        return !settingComponent.getSessionToken().equals(settings.sessionToken);
+        return !settingComponent.getSessionToken().equals(settings.sessionToken)
+                ;
     }
 
     @Override

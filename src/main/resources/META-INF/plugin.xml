@@ -14,7 +14,7 @@
                 parentId="tools"
                 instance="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
                 id="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
-                displayName="ChatGPT Tool"/>
+                displayName="ChatGPT Free"/>
         <applicationService serviceImplementation="com.lilittlecat.chatgpt.setting.ChatGPTSettingsState"/>
     </extensions>
 </idea-plugin>
