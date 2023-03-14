@@ -4,7 +4,9 @@ import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBList;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
+import com.intellij.ui.table.JBTable;
 import com.intellij.util.ui.FormBuilder;
+import com.intellij.util.ui.ListTableModel;
 import com.intellij.util.ui.UIUtil;
 import com.lilittlecat.chatgpt.message.ChatGPTBundle;
 
@@ -18,8 +20,8 @@ import javax.swing.*;
 public class ChatGPTSettingsComponent {
     private final JPanel myMainPanel;
     private final JBTextArea sessionToken = new JBTextArea();
-
-    private JBList<String> urlList;
+    private final JBTextArea defaultUrl = new JBTextArea();
+    private final JBTable urlTable = new JBTable();
 
     public ChatGPTSettingsComponent() {
         sessionToken.setFont(UIUtil.getLabelFont());
@@ -28,7 +30,9 @@ public class ChatGPTSettingsComponent {
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         myMainPanel = FormBuilder.createFormBuilder()
-                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("setting.session.token.label")), scrollPane, 1, false)
+//                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("setting.session.token.label")), scrollPane, 1, false)
+                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("setting.session.token.label")), sessionToken, 1, false)
+                .addLabeledComponent(new JBLabel("Table"), urlTable)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
     }
