@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class ChatGPTBundle extends DynamicBundle {
     @NonNls
-    private static final String BUNDLE = "messages.ChatGPTBundle";
+    public static final String BUNDLE = "messages.ChatGPTBundle";
     private static final ChatGPTBundle INSTANCE = new ChatGPTBundle();
 
     private ChatGPTBundle() {

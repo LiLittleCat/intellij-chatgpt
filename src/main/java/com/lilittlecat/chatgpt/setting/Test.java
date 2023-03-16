@@ -1,5 +1,7 @@
 package com.lilittlecat.chatgpt.setting;
 
+import com.intellij.ui.components.JBComboBoxLabel;
+
 import javax.swing.*;
 
 /**
@@ -8,12 +10,6 @@ import javax.swing.*;
  */
 public class Test {
     private JPanel myMainPanel;
-    private JPanel officialWebsiteTitle;
-    private JPanel thirdPartyWebsiteTitle;
-    private JTextField textField1;
     private JComboBox defaultWebsite;
-    private JTable thirdPartyWebsiteTable;
-    private JButton updateButton;
-    private JButton testButton;
     private JSpinner spinner1;
 }
