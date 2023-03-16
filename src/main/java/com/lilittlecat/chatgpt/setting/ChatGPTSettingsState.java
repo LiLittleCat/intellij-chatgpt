@@ -5,11 +5,14 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import com.lilittlecat.chatgpt.message.ChatGPTBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * @author LiLittleCat
@@ -21,11 +24,26 @@ import java.util.List;
         storages = @Storage("ChatGPTSettingsState.xml")
 )
 public class ChatGPTSettingsState implements PersistentStateComponent<ChatGPTSettingsState> {
-    public String sessionToken = "";
+//    public String sessionToken = "";
 
-    public String defaultUrl = "";
+    public String defaultUrl = ChatGPTBundle.message("default.url");
 
-    public List<String> urlList = new ArrayList<>();
+    public List<String> urlList;
+
+    public ChatGPTSettingsState() {
+        urlList = new ArrayList<>();
+        urlList.add(ChatGPTBundle.message("default.url"));
+        ResourceBundle bundle = ResourceBundle.getBundle(ChatGPTBundle.BUNDLE);
+        Enumeration<String> keys = bundle.getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            if (key.startsWith("url")) {
+                String url = bundle.getString(key);
+                System.out.println(key + ": " + url);
+                urlList.add(url);
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -38,9 +56,9 @@ public class ChatGPTSettingsState implements PersistentStateComponent<ChatGPTSet
         XmlSerializerUtil.copyBean(state, this);
     }
 
-    public void setSessionToken(String sessionToken) {
-        this.sessionToken = sessionToken;
-    }
+//    public void setSessionToken(String sessionToken) {
+//        this.sessionToken = sessionToken;
+//    }
 
     public void setDefaultUrl(String defaultUrl) {
         this.defaultUrl = defaultUrl;
