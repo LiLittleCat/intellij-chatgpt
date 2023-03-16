@@ -9,12 +9,14 @@ import com.intellij.openapi.ui.cellvalidators.ValidationUtils;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.ColoredTableCellRenderer;
+import com.intellij.ui.SeparatorComponent;
 import com.intellij.ui.SimpleTextAttributes;
-import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.ToolbarDecorator;
+import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.fields.ExtendableTextField;
 import com.intellij.ui.table.JBTable;
 import com.intellij.util.ui.ColumnInfo;
+import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.JBInsets;
 import com.intellij.util.ui.ListTableModel;
 import com.lilittlecat.chatgpt.message.ChatGPTBundle;
@@ -37,7 +39,7 @@ import java.util.Objects;
  */
 public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
 
-    private final Disposable myDisposable = Disposer.newDisposable();
+    private Disposable myDisposable = Disposer.newDisposable();
 
     private JPanel myMainPanel;
 
@@ -46,7 +48,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
 
     private JPanel urlListBorderBox;
 
-    private final ListTableModel<String> myModel = new ListTableModel<>() {
+    private ListTableModel<String> myModel = new ListTableModel<>() {
         @Override
         public void addRow() {
             addRow("");
@@ -74,17 +76,14 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
                 }
             }
         };
-        myMainPanel = new JPanel(new BorderLayout());
-        defaultUrlBorderBox = new JPanel(new BorderLayout());
-        defaultUrlBorderBox.add(new TitledSeparator("Default Website"), BorderLayout.NORTH);
-        urlListBorderBox = new JPanel(new BorderLayout());
-        urlListBorderBox.add(new TitledSeparator("Website List"), BorderLayout.NORTH);
-        myMainPanel.add(defaultUrlBorderBox, BorderLayout.CENTER);
-        createComboBox();
-        myMainPanel.add(defaultUrlComboBox, BorderLayout.NORTH);
         JComponent table = createTable();
-        myMainPanel.add(urlListBorderBox, BorderLayout.CENTER);
-        myMainPanel.add(table, BorderLayout.CENTER);
+        createComboBox();
+        myMainPanel = FormBuilder.createFormBuilder()
+                .addLabeledComponent(new JBLabel("Default website: "), defaultUrlComboBox, 1, false)
+                .addLabeledComponent(new SeparatorComponent(), new JPanel(), 1, false)
+                .addLabeledComponent(new JBLabel("Website list: "), table, 3, true)
+                .addComponentFillVertically(new JPanel(), 0)
+                .getPanel();
         return myMainPanel;
     }
 
@@ -95,7 +94,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
         for (String item : items) {
             defaultUrlComboBox.addItem(item);
         }
-        defaultUrlComboBox.setSelectedIndex(0);
+        defaultUrlComboBox.setSelectedItem(ChatGPTSettingsState.getInstance().defaultUrl);
     }
 
     private JComponent createTable() {
@@ -122,8 +121,8 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
                 List<String> items = new ArrayList<>(myModel.getItems());
                 items.set(row, value);
                 myModel.setItems(items);
+                defaultUrlComboBox.addItem(value);
                 myModel.fireTableCellUpdated(row, TableModelEvent.ALL_COLUMNS);
-
                 myTable.repaint();
             }
         }});
@@ -195,9 +194,9 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     public void apply() {
         myTable.editingStopped(null);
         ChatGPTSettingsState instance = ChatGPTSettingsState.getInstance();
-        instance.urlList.clear();
-        instance.urlList.addAll(myModel.getItems());
         instance.defaultUrl = Objects.requireNonNull(defaultUrlComboBox.getSelectedItem()).toString();
+        instance.urlList = myModel.getItems();
+//        instance.urlList.addAll(myModel.getItems());
     }
 
     @Override
