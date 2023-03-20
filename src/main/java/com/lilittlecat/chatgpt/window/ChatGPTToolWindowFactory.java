@@ -11,7 +11,7 @@ import com.intellij.ui.content.ContentManagerListener;
 import com.lilittlecat.chatgpt.action.AddTabAction;
 import com.lilittlecat.chatgpt.action.RefreshAction;
 import com.lilittlecat.chatgpt.action.SettingsAction;
-import com.lilittlecat.chatgpt.message.ChatGPTBundle;
+import com.lilittlecat.chatgpt.setting.ChatGPTSettingsState;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -28,19 +28,22 @@ public class ChatGPTToolWindowFactory implements ToolWindowFactory {
         ContentManager contentManager = toolWindow.getContentManager();
         @SuppressWarnings("DialogTitleCapitalization")
         Content labelContent = contentManager.getFactory().createContent(
-                new ChatGPTToolWindow(ChatGPTBundle.message("default.url")).getContent(), ChatGPTBundle.message("browser.tab.name"), false);
+                new ChatGPTToolWindow(ChatGPTSettingsState.getInstance().defaultUrl).getContent(),
+                ChatGPTSettingsState.getInstance().defaultUrl, false);
         contentManager.addContent(labelContent);
-        contentManager.addContentManagerListener(new ContentManagerListener() {
-                                                     @Override
-                                                     public void contentRemoved(@NotNull ContentManagerEvent event) {
-                                                         // when all tabs are closed, add a new tab
-                                                            if (contentManager.getContentCount() == 0) {
-                                                                Content labelContent = contentManager.getFactory().createContent(
-                                                                        new ChatGPTToolWindow(ChatGPTBundle.message("default.url")).getContent(), ChatGPTBundle.message("browser.tab.name"), false);
-                                                                contentManager.addContent(labelContent);
-                                                            }
-                                                     }
-                                                 }
+        contentManager.addContentManagerListener(
+                new ContentManagerListener() {
+                    @Override
+                    public void contentRemoved(@NotNull ContentManagerEvent event) {
+                        // when all tabs are closed, add a new tab
+                        if (contentManager.getContentCount() == 0) {
+                            Content labelContent = contentManager.getFactory().createContent(
+                                    new ChatGPTToolWindow(ChatGPTSettingsState.getInstance().defaultUrl).getContent(),
+                                    ChatGPTSettingsState.getInstance().defaultUrl, false);
+                            contentManager.addContent(labelContent);
+                        }
+                    }
+                }
         );
         // add actions to tool window
         List<AnAction> anActionList = new ArrayList<>();
