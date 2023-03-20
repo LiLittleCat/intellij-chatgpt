@@ -27,10 +27,11 @@ repositories {
     mavenCentral()
 }
 
-//dependencies {
+dependencies {
 //    implementation("com.google.guava:guava:31.1-jre")
-//    implementation("com.squareup.okhttp3:okhttp:4.9.3")
-//}
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("org.json:json:20230227")
+}
 
 // Set the JVM language level used to build project. Use Java 11 for 2020.3+, and Java 17 for 2022.2+.
 kotlin {
