@@ -27,20 +27,43 @@ public class RefreshAction extends DumbAwareAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+        // Get the ToolWindowManager instance for the current project
         ToolWindowManager instance = ToolWindowManager.getInstance(Objects.requireNonNull(e.getProject()));
+        // Get the tool window with the specified name
         ToolWindow toolWindow = instance.getToolWindow(ChatGPTBundle.message("name"));
         if (toolWindow != null) {
+            // Get the content manager for the tool window
             ContentManager contentManager = toolWindow.getContentManager();
-            Content browserContent = contentManager.findContent(ChatGPTBundle.message("browser.tab.name"));
-            if (browserContent != null) {
-                contentManager.removeContent(browserContent, false);
+            // Get the currently selected content
+            Content selectedContent = contentManager.getSelectedContent();
+            assert selectedContent != null;
+            // Get the tab name of the selected content
+            String selectedContentTabName = selectedContent.getTabName();
+            // Store the index of the selected content
+            int selectedIndex = contentManager.getIndexOfContent(selectedContent);
+            // Remove the selected content
+            contentManager.removeContent(selectedContent, false);
+            // Iterate through all contents in the content manager
+            for (int i = 0; i < contentManager.getContentCount(); i++) {
+                // Get the current content
+                Content content = contentManager.getContent(i);
+                assert content != null;
+                // Get the tab name of the current content
+                String tabName = content.getTabName();
+                // Remove the current content
+                contentManager.removeContent(content, false);
+                // Create a new content with the same tab name
+                Content browser = ContentFactory.SERVICE.getInstance().createContent(
+                        new ChatGPTToolWindow(tabName).getContent(), tabName, false);
+                // Add the new content to the content manager
+                contentManager.addContent(browser);
             }
-            ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-            @SuppressWarnings("DialogTitleCapitalization")
-            Content browser = contentFactory.createContent(new ChatGPTToolWindow("https://baidu.com").getContent(),
-                    ChatGPTBundle.message("browser.tab.name"), false);
-            contentManager.addContent(browser);
-            contentManager.setSelectedContent(browser);
+            // Set the new content as the selected content using the updated selectedIndex
+            Content selectedBrowser = ContentFactory.SERVICE.getInstance().createContent(
+                    new ChatGPTToolWindow(selectedContentTabName).getContent(), selectedContentTabName,false);
+            contentManager.addContent(selectedBrowser, selectedIndex);
+            contentManager.setSelectedContent(selectedBrowser);
         }
     }
+
 }
