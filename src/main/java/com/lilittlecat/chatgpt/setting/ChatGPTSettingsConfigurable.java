@@ -42,17 +42,29 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     private Disposable myDisposable = Disposer.newDisposable();
 
     private JPanel myMainPanel;
-
-    private JPanel defaultUrlBorderBox;
     private JComboBox<String> defaultUrlComboBox;
-
-    private JPanel urlListBorderBox;
 
     private ListTableModel<String> myModel = new ListTableModel<>() {
         @Override
         public void addRow() {
             addRow("");
         }
+
+        @Override
+        public void removeRow(int idx) {
+            super.removeRow(idx);
+//            defaultUrlComboBox.remove(idx);
+            defaultUrlComboBox.removeItemAt(idx);
+        }
+
+        @NotNull
+        @Override
+        public List<String> getItems() {
+            List<String> items = super.getItems();
+            // change Collections.unmodifiableList to ArrayList
+            return new ArrayList<>(items);
+        }
+
     };
 
     private JBTable myTable;
@@ -77,6 +89,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
             }
         };
         JComponent table = createTable();
+        table.setPreferredSize(new Dimension(500, 200));
         createComboBox();
         myMainPanel = FormBuilder.createFormBuilder()
                 .addLabeledComponent(new JBLabel("Default website: "), defaultUrlComboBox, 1, false)
@@ -116,14 +129,15 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
                 int row = myTable.getSelectedRow();
                 if (StringUtil.isEmpty(value) && row >= 0 && row < myModel.getRowCount()) {
                     myModel.removeRow(row);
+                    defaultUrlComboBox.removeItemAt(row);
                 }
-
                 List<String> items = new ArrayList<>(myModel.getItems());
                 items.set(row, value);
                 myModel.setItems(items);
-                defaultUrlComboBox.addItem(value);
                 myModel.fireTableCellUpdated(row, TableModelEvent.ALL_COLUMNS);
                 myTable.repaint();
+                // add to comboBox
+                defaultUrlComboBox.addItem(value);
             }
         }});
         myTable.getColumnModel().setColumnMargin(0);
@@ -203,6 +217,10 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     public void reset() {
         ChatGPTSettingsState instance = ChatGPTSettingsState.getInstance();
         myModel.setItems(instance.urlList);
+        defaultUrlComboBox.removeAllItems();
+        for (String s : instance.urlList) {
+            defaultUrlComboBox.addItem(s);
+        }
         defaultUrlComboBox.setSelectedItem(instance.defaultUrl);
     }
 
