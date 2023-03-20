@@ -13,7 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -39,7 +42,21 @@ public class ChatGPTToolWindow extends SimpleToolWindowPanel {
         super(true, false);
         this.content = new JPanel(new BorderLayout());
         if (!JBCefApp.isSupported()) {
-            this.content.add(new JLabel(ChatGPTBundle.message("jBCefApp.not.supported"), SwingConstants.CENTER));
+            JEditorPane editorPane = new JEditorPane("text/html", ChatGPTBundle.message("jBCefApp.not.supported"));
+            editorPane.setEditable(false);
+            editorPane.setOpaque(false);
+            editorPane.addHyperlinkListener(e -> {
+                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    try {
+                        java.awt.Desktop.getDesktop().browse(e.getURL().toURI());
+                    } catch (IOException | URISyntaxException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            JOptionPane.showMessageDialog(null, editorPane);
+//            this.content.add(new JLabel(ChatGPTBundle.message("jBCefApp.not.supported"), SwingConstants.CENTER));
+            this.content.add(editorPane, SwingConstants.CENTER);
             return;
         }
         JBCefBrowser jbCefBrowser = new JBCefBrowser();
