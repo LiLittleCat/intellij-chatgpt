@@ -52,9 +52,14 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
 
         @Override
         public void removeRow(int idx) {
-            super.removeRow(idx);
-//            defaultUrlComboBox.remove(idx);
-            defaultUrlComboBox.removeItemAt(idx);
+            String item = getItem(idx);
+            if (item.equals(ChatGPTSettingsState.getInstance().defaultUrl)) {
+                // popup a dialog to tell user that the default url can't be removed
+                JOptionPane.showMessageDialog(null, ChatGPTBundle.message("chatgpt.settings.defaultUrlCanNotBeRemoved"));
+            } else {
+                super.removeRow(idx);
+                defaultUrlComboBox.removeItemAt(idx);
+            }
         }
 
         @NotNull
@@ -92,9 +97,9 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
         table.setPreferredSize(new Dimension(500, 200));
         createComboBox();
         myMainPanel = FormBuilder.createFormBuilder()
-                .addLabeledComponent(new JBLabel("Default website: "), defaultUrlComboBox, 1, false)
+                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("default.url.message") ), defaultUrlComboBox, 1, false)
                 .addLabeledComponent(new SeparatorComponent(), new JPanel(), 1, false)
-                .addLabeledComponent(new JBLabel("Website list: "), table, 3, true)
+                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("url.list.message")), table, 3, true)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
         return myMainPanel;
