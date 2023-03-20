@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.lilittlecat.intellij-chatgpt</id>
-    <name>ChatGPT Free</name>
+    <name>ChatGPT Tool</name>
     <vendor email="lilittlecat@qq.com" url="https://github.com/LiLittleCat">
         LiLittleCat
     </vendor>
@@ -14,7 +14,7 @@
                 parentId="tools"
                 instance="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
                 id="com.lilittlecat.chatgpt.setting.ChatGPTSettingsConfigurable"
-                displayName="ChatGPT Free"/>
+                displayName="ChatGPT Tool"/>
         <applicationService serviceImplementation="com.lilittlecat.chatgpt.setting.ChatGPTSettingsState"/>
     </extensions>
 </idea-plugin>
