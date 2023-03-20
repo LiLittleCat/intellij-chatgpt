@@ -8,10 +8,7 @@ import com.intellij.openapi.ui.cellvalidators.ValidatingTableCellRendererWrapper
 import com.intellij.openapi.ui.cellvalidators.ValidationUtils;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.ui.ColoredTableCellRenderer;
-import com.intellij.ui.SeparatorComponent;
-import com.intellij.ui.SimpleTextAttributes;
-import com.intellij.ui.ToolbarDecorator;
+import com.intellij.ui.*;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.fields.ExtendableTextField;
 import com.intellij.ui.table.JBTable;
@@ -19,6 +16,7 @@ import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.JBInsets;
 import com.intellij.util.ui.ListTableModel;
+import com.lilittlecat.chatgpt.action.FetchURLAction;
 import com.lilittlecat.chatgpt.message.ChatGPTBundle;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
@@ -47,6 +45,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     private ListTableModel<String> myModel = new ListTableModel<>() {
         @Override
         public void addRow() {
+            // add item to table
             addRow("");
         }
 
@@ -57,7 +56,9 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
                 // popup a dialog to tell user that the default url can't be removed
                 JOptionPane.showMessageDialog(null, ChatGPTBundle.message("chatgpt.settings.defaultUrlCanNotBeRemoved"));
             } else {
+                // remove item from table
                 super.removeRow(idx);
+                // remove item from comboBox
                 defaultUrlComboBox.removeItemAt(idx);
             }
         }
@@ -82,6 +83,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     }
 
     private JComponent init() {
+        // init table
         myModel.addRows(ChatGPTSettingsState.getInstance().urlList);
         myTable = new JBTable(myModel) {
             @Override
@@ -180,7 +182,9 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
             }
         }).bindToEditorSize(cellEditor::getPreferredSize));
 
+        AnActionButton fetchUrlListFromGithub = AnActionButton.fromAction(new FetchURLAction("Fetch url list from github"));
         return ToolbarDecorator.createDecorator(myTable)
+                .addExtraAction(fetchUrlListFromGithub)
                 .disableUpDownActions()
                 .createPanel();
     }
