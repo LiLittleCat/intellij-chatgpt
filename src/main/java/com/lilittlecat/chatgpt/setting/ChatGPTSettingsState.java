@@ -33,16 +33,16 @@ public class ChatGPTSettingsState implements PersistentStateComponent<ChatGPTSet
     public ChatGPTSettingsState() {
         urlList = new ArrayList<>();
         urlList.add(ChatGPTBundle.message("default.url"));
-        ResourceBundle bundle = ResourceBundle.getBundle(ChatGPTBundle.BUNDLE);
-        Enumeration<String> keys = bundle.getKeys();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            if (key.startsWith("url")) {
-                String url = bundle.getString(key);
-                System.out.println(key + ": " + url);
-                urlList.add(url);
-            }
-        }
+//        ResourceBundle bundle = ResourceBundle.getBundle(ChatGPTBundle.BUNDLE);
+//        Enumeration<String> keys = bundle.getKeys();
+//        while (keys.hasMoreElements()) {
+//            String key = keys.nextElement();
+//            if (key.startsWith("url")) {
+//                String url = bundle.getString(key);
+//                System.out.println(key + ": " + url);
+//                urlList.add(url);
+//            }
+//        }
     }
 
     @Nullable
