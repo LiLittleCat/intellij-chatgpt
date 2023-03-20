@@ -9,13 +9,16 @@ import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import com.lilittlecat.chatgpt.message.ChatGPTBundle;
+import com.lilittlecat.chatgpt.setting.ChatGPTSettingsState;
+import com.lilittlecat.chatgpt.window.ChatGPTToolWindow;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
+import java.util.List;
 import java.util.Objects;
 
 /**
+ * todo change it to group popup
  * @author <a href="https://github.com/LiLittleCat">LiLittleCat</a>
  * @since 2023/3/9
  */
@@ -26,9 +29,10 @@ public class AddTabAction extends DumbAwareAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        String[] options = new String[] {"Content 1", "Content 2", "Content 3"};
+        List<String> urlList = ChatGPTSettingsState.getInstance().urlList;
+        String[] options = urlList.toArray(new String[0]);
 //        String selected = Messages.showChooseDialog("Select Content", "Choose Content to Add", options, options[0], null);
-        String selected = Messages.showEditableChooseDialog("Select Content", "Choose Content to Add", AllIcons.General.Add, options, options[0], null);
+        String selected = Messages.showEditableChooseDialog("Select URL", "Choose a URL to Add", AllIcons.General.Add, options, options[0], null);
         if (selected == null) {
             return;
         }
@@ -36,22 +40,8 @@ public class AddTabAction extends DumbAwareAction {
         ToolWindow toolWindow = instance.getToolWindow(ChatGPTBundle.message("name"));
         assert toolWindow != null;
         ContentManager contentManager = toolWindow.getContentManager();
-        switch (selected) {
-            case "Content 1": {
-                Content content = contentManager.getFactory().createContent(new JLabel("Content 1"), "Content 1", true);
-                contentManager.addContent(content);
-                break;
-            }
-            case "Content 2": {
-                Content content = contentManager.getFactory().createContent(new JLabel("Content 2"), "Content 2", true);
-                contentManager.addContent(content);
-                break;
-            }
-            case "Content 3": {
-                Content content = contentManager.getFactory().createContent(new JLabel("Content 3"), "Content 3", true);
-                contentManager.addContent(content);
-                break;
-            }
-        }
+        Content content = contentManager.getFactory().createContent(new ChatGPTToolWindow(selected).getContent(), selected, false);
+        contentManager.addContent(content);
+        contentManager.setSelectedContent(content);
     }
 }
