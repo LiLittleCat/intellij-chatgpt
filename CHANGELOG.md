@@ -6,12 +6,12 @@
 
 ### Added
 
-- Add third-party mirror websites for free using.
-- Support all future IDE builds [#12](https://github.com/LiLittleCat/intellij-chatgpt/pull/12)
+- Integration of third-party mirror websites for free usage.
+- Support for all future IDE builds [#12](https://github.com/LiLittleCat/intellij-chatgpt/pull/12)
 
 ### Fixed
 
-- Remove session token storage to avoid cookie setting problems [#16](https://github.com/LiLittleCat/intellij-chatgpt/issues/16)
+- Removed session token storage to resolve cookie setting issues [#16](https://github.com/LiLittleCat/intellij-chatgpt/issues/16)
 - Change the Tool Window name to `ChatGPT Tool` [#10](https://github.com/LiLittleCat/intellij-chatgpt/issues/10)
 
 ## [1.0.3] - 2023-02-20
