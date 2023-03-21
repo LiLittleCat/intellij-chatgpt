@@ -18,7 +18,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * todo change it to group popup
+ * add new tab action
+ *
  * @author <a href="https://github.com/LiLittleCat">LiLittleCat</a>
  * @since 2023/3/9
  */
