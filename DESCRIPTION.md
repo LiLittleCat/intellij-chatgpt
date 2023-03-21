@@ -1,35 +1,39 @@
 
 <!-- Plugin description -->
 
-A [ChatGPT](https://chat.openai.com/) plugin for IntelliJ Platform-Based IDEs.
+This Jetbrains IDEs plugin integrates [ChatGPT](https://chat.openai.com/) and [other third-party mirror websites](https://github.com/LiLittleCat/awesome-free-chatgpt) of ChatGPT into JetBrains IDEs,
+providing a seamless experience for developers to interact with the ChatGPT AI model directly within their development environment.
 
 ### Feature
 
-🚀 Easy to use, without annoyingly token copy, just login once and you are ready to go.
+- 🚀 Easy to use, interact with ChatGPT without leaving the IDE.
+- 🆓 Integrates free third-party mirror websites and easily update.
+- ✅ Add and manage multiple ChatGPT URLs.
+- 🔄 Easily switch between different ChatGPT URLs.
 
-### Usage
+### How it works
 
-1. Register a [OpenAI](https://beta.openai.com/signup) account.
-2. Open tool window "ChatGPT", login is required for the first time.
-3. Just ask ChatGPT anything you want.
+This plugin uses JCEF(Java Chromium Embedded Framework) to render the content. It is a lightweight and cross-platform web browser engine that is built on top of Chromium and is used by IntelliJ IDEA to render the HTML content of the IDE.
+JCEF is supported in IntelliJ IDEA 2020.2 and later. See [JCEF](https://plugins.jetbrains.com/docs/intellij/jcef.html) for more information.
 
-[Github](https://github.com/LiLittleCat/intellij-chatgpt) 
-
+Feel free to submit [issue](https://github.com/LiLittleCat/awesome-free-chatgpt/issues) and [PRs](https://github.com/LiLittleCat/awesome-free-chatgpt/pulls). If you find it useful, welcome to star ⭐, your support is my motivation to move forward.
 
 ---
-一个适合所有 JetBrains IDE 的 [ChatGPT](https://chat.openai.com/) 插件。
 
-### 特点
+一个将 [ChatGPT](https://chat.openai.com/) 和 [其他第三方镜像网站](https://github.com/LiLittleCat/awesome-free-chatgpt) 整合到 JetBrains IDEs 的插件。
 
-🚀 简单快捷，无需烦人的 token 复制，只需登录一次就可以使用。
+### 功能
 
-### 使用
+- 🚀 易于使用，无需离开 IDE 即可与 ChatGPT 交互。
+- 🆓 集成免费的第三方镜像网站，并且更新方便。
+- ✅ 添加和管理多个 ChatGPT URL。
+- 🔄 轻松在不同的 ChatGPT URL 之间切换。
 
-1. 注册一个 [OpenAI](https://beta.openai.com/signup) 账户。
-2. 打开工具窗口 "ChatGPT"，第一次使用时需要登录。
-3. 输入你想问的问题。
+### 如何工作的
 
+此插件使用 JCEF（Java Chromium Embedded Framework）来渲染内容。它是一个轻量级且跨平台的基于 Chromium 的网络浏览器引擎，被 IntelliJ IDEA 用于渲染 IDE 的 HTML 内容。
+JCEF 支持 IntelliJ IDEA 2020.2 及更高版本。有关更多信息，请参阅 [JCEF](https://plugins.jetbrains.com/docs/intellij/jcef.html)。
 
-[Github](https://github.com/LiLittleCat/intellij-chatgpt)
+欢迎随时提交 [issue](https://github.com/LiLittleCat/awesome-free-chatgpt/issues) 和 [PRs](https://github.com/LiLittleCat/awesome-free-chatgpt/pulls)，如果您觉得有用，欢迎 star ⭐，您的支持是我前进的动力。
 
 <!-- Plugin description end -->
