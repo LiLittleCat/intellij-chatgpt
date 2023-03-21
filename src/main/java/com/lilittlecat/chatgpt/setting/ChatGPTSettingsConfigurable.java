@@ -1,6 +1,7 @@
 package com.lilittlecat.chatgpt.setting;
 
 import com.intellij.openapi.Disposable;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.cellvalidators.StatefulValidatingCellEditor;
@@ -12,6 +13,7 @@ import com.intellij.ui.*;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.fields.ExtendableTextField;
 import com.intellij.ui.table.JBTable;
+import com.intellij.util.messages.MessageBusConnection;
 import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.JBInsets;
@@ -37,52 +39,92 @@ import java.util.Objects;
  */
 public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
 
+    private MessageBusConnection connection;
+
+    // A default constructor with no arguments is required because this implementation
+    // is registered as an applicationConfigurable EP
+    public ChatGPTSettingsConfigurable() {
+        connection = ApplicationManager.getApplication().getMessageBus().connect();
+        connection.subscribe(UpdateChatGPTSettingStateTopic.TOPIC, this::refreshUI);
+        init();
+    }
+
+    private void refreshUI() {
+        // Update the defaultUrlComboBox
+        defaultUrlComboBox.removeAllItems();
+        List<String> items = ChatGPTSettingsState.getInstance().urlList;
+        for (String item : items) {
+            defaultUrlComboBox.addItem(item);
+        }
+        defaultUrlComboBox.setSelectedItem(ChatGPTSettingsState.getInstance().defaultUrl);
+
+        // Update the myModel
+        myModel.setItems(ChatGPTSettingsState.getInstance().urlList);
+    }
+
+    @Override
+    public void disposeUIResources() {
+        // Disconnect the message bus connection when the UI is disposed
+        connection.disconnect();
+        Disposer.dispose(myDisposable);
+    }
+
+    @Override
+    public @NotNull String getId() {
+        return "com.lilittlecat.chatgpt.setting.ChatGPTSettingConfigurable";
+    }
+
+    public void addUrl(@NotNull String url) {
+        if (StringUtil.isNotEmpty(url)) {
+            defaultUrlComboBox.addItem(url);
+            myModel.addRow(url);
+        }
+    }
+
     private Disposable myDisposable = Disposer.newDisposable();
 
     private JPanel myMainPanel;
     private JComboBox<String> defaultUrlComboBox;
 
-    private ListTableModel<String> myModel = new ListTableModel<>() {
-        @Override
-        public void addRow() {
-            // add item to table
-            addRow("");
-        }
-
-        @Override
-        public void removeRow(int idx) {
-            String item = getItem(idx);
-            if (item.equals(ChatGPTSettingsState.getInstance().defaultUrl)) {
-                // popup a dialog to tell user that the default url can't be removed
-                JOptionPane.showMessageDialog(null, ChatGPTBundle.message("chatgpt.settings.defaultUrlCanNotBeRemoved"));
-            } else {
-                // remove item from table
-                super.removeRow(idx);
-                // remove item from comboBox
-                defaultUrlComboBox.removeItemAt(idx);
-            }
-        }
-
-        @NotNull
-        @Override
-        public List<String> getItems() {
-            List<String> items = super.getItems();
-            // change Collections.unmodifiableList to ArrayList
-            return new ArrayList<>(items);
-        }
-
-    };
+    private ListTableModel<String> myModel;
 
     private JBTable myTable;
 
-
-    // A default constructor with no arguments is required because this implementation
-    // is registered as an applicationConfigurable EP
-    public ChatGPTSettingsConfigurable() {
-        init();
-    }
-
     private JComponent init() {
+        myModel = new ListTableModel<>() {
+            @Override
+            public void addRow() {
+                // add item to table
+                addRow("");
+            }
+
+            @Override
+            public void removeRow(int idx) {
+                String item = getItem(idx);
+                if (item.equals(ChatGPTSettingsState.getInstance().defaultUrl)) {
+                    // popup a dialog to tell user that the default url can't be removed
+                    JOptionPane.showMessageDialog(null, ChatGPTBundle.message("chatgpt.settings.defaultUrlCanNotBeRemoved"));
+                } else if (item.equals(ChatGPTBundle.message("original.url"))) {
+                    // popup a dialog to tell user that the original url can't be removed
+                    JOptionPane.showMessageDialog(null, ChatGPTBundle.message("chatgpt.settings.originalUrlCanNotBeRemoved"));
+                } else {
+                    // remove item from table
+                    super.removeRow(idx);
+                    // remove item from comboBox
+                    defaultUrlComboBox.removeItemAt(idx);
+                }
+            }
+
+            @NotNull
+            @Override
+            public List<String> getItems() {
+                List<String> items = super.getItems();
+                // change Collections.unmodifiableList to ArrayList
+                return new ArrayList<>(items);
+            }
+
+        };
+
         // init table
         myModel.addRows(ChatGPTSettingsState.getInstance().urlList);
         myTable = new JBTable(myModel) {
@@ -99,7 +141,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
         table.setPreferredSize(new Dimension(500, 200));
         createComboBox();
         myMainPanel = FormBuilder.createFormBuilder()
-                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("default.url.message") ), defaultUrlComboBox, 1, false)
+                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("default.url.message")), defaultUrlComboBox, 1, false)
                 .addLabeledComponent(new SeparatorComponent(), new JPanel(), 1, false)
                 .addLabeledComponent(new JBLabel(ChatGPTBundle.message("url.list.message")), table, 3, true)
                 .addComponentFillVertically(new JPanel(), 0)
@@ -110,6 +152,9 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     private void createComboBox() {
         // get value from myTable dynamically and set first value in myTable as default value of comboBox
         defaultUrlComboBox = new ComboBox<>();
+        Dimension preferredSize = defaultUrlComboBox.getPreferredSize();
+        preferredSize.width = 200; // Set the desired width here
+        defaultUrlComboBox.setPreferredSize(preferredSize);
         List<String> items = myModel.getItems();
         for (String item : items) {
             defaultUrlComboBox.addItem(item);
@@ -182,7 +227,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
             }
         }).bindToEditorSize(cellEditor::getPreferredSize));
 
-        AnActionButton fetchUrlListFromGithub = AnActionButton.fromAction(new FetchURLAction("Fetch url list from github"));
+        AnActionButton fetchUrlListFromGithub = AnActionButton.fromAction(new FetchURLAction(ChatGPTBundle.message("chatgpt.settings.fetch.url.list.from.github")));
         return ToolbarDecorator.createDecorator(myTable)
                 .addExtraAction(fetchUrlListFromGithub)
                 .disableUpDownActions()
@@ -210,7 +255,13 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     @Override
     public boolean isModified() {
         ChatGPTSettingsState instance = ChatGPTSettingsState.getInstance();
-        return !instance.urlList.equals(myModel.getItems()) || !instance.defaultUrl.equals(defaultUrlComboBox.getSelectedItem());
+        boolean modified = false;
+        modified = !instance.defaultUrl.equals(defaultUrlComboBox.getSelectedItem());
+        List<String> urlList = instance.urlList;
+        List<String> items = myModel.getItems();
+        modified |= urlList.size() != items.size();
+        modified |= !urlList.equals(items);
+        return modified;
     }
 
     @Override
@@ -219,6 +270,8 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
         ChatGPTSettingsState instance = ChatGPTSettingsState.getInstance();
         instance.defaultUrl = Objects.requireNonNull(defaultUrlComboBox.getSelectedItem()).toString();
         instance.urlList = myModel.getItems();
+        // Refresh the UI after updating the settings
+        refreshUI();
 //        instance.urlList.addAll(myModel.getItems());
     }
 
@@ -231,15 +284,5 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
             defaultUrlComboBox.addItem(s);
         }
         defaultUrlComboBox.setSelectedItem(instance.defaultUrl);
-    }
-
-    @Override
-    public void disposeUIResources() {
-        Disposer.dispose(myDisposable);
-    }
-
-    @Override
-    public @NotNull String getId() {
-        return "com.lilittlecat.chatgpt.setting.ChatGPTSettingConfigurable";
     }
 }
