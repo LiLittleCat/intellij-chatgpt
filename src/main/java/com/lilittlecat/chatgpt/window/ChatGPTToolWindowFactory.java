@@ -8,9 +8,8 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import com.intellij.ui.content.ContentManagerEvent;
 import com.intellij.ui.content.ContentManagerListener;
-import com.lilittlecat.chatgpt.action.AddTabAction;
-import com.lilittlecat.chatgpt.action.RefreshAction;
-import com.lilittlecat.chatgpt.action.SettingsAction;
+import com.lilittlecat.chatgpt.action.*;
+import com.lilittlecat.chatgpt.message.ChatGPTBundle;
 import com.lilittlecat.chatgpt.setting.ChatGPTSettingsState;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +25,6 @@ public class ChatGPTToolWindowFactory implements ToolWindowFactory {
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         ContentManager contentManager = toolWindow.getContentManager();
-        @SuppressWarnings("DialogTitleCapitalization")
         Content labelContent = contentManager.getFactory().createContent(
                 new ChatGPTToolWindow(ChatGPTSettingsState.getInstance().defaultUrl).getContent(),
                 ChatGPTSettingsState.getInstance().defaultUrl, false);
@@ -47,9 +45,11 @@ public class ChatGPTToolWindowFactory implements ToolWindowFactory {
         );
         // add actions to tool window
         List<AnAction> anActionList = new ArrayList<>();
-        anActionList.add(new SettingsAction("Settings"));
-        anActionList.add(new RefreshAction("Refresh"));
-        anActionList.add(new AddTabAction("Add Tab"));
+        anActionList.add(new SettingsAction(ChatGPTBundle.message("settings.action")));
+        anActionList.add(new RefreshAction(ChatGPTBundle.message("refresh.action")));
+        anActionList.add(new AddTabAction(ChatGPTBundle.message("add.tab.action")));
+        anActionList.add(new GitHubAction(ChatGPTBundle.message("github.action")));
+        anActionList.add(new MorePluginAction(ChatGPTBundle.message("more.plugins.action")));
         toolWindow.setTitleActions(anActionList);
     }
 }
