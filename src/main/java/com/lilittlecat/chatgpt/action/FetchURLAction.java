@@ -11,6 +11,7 @@ import com.lilittlecat.chatgpt.setting.UpdateChatGPTSettingStateTopic;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -66,20 +67,20 @@ public class FetchURLAction extends DumbAwareAction {
     }
 
     private void processJsonArray(JSONArray jsonArray) {
-        String defaultUrl = ChatGPTSettingsState.getInstance().defaultUrl;
-        List<String> urlList = ChatGPTSettingsState.getInstance().urlList;
-        urlList.clear();
-        String originalUrl = ChatGPTBundle.message("original.url");
-        if (originalUrl.equals(defaultUrl)) {
-            urlList.add(defaultUrl);
-        } else {
-            urlList.add(originalUrl);
-            urlList.add(defaultUrl);
-        }
+//        String defaultUrl = ChatGPTSettingsState.getInstance().defaultUrl;
+        List<String> oldUrlList = ChatGPTSettingsState.getInstance().urlList;
+//        oldUrlList.clear();
+//        String originalUrl = ChatGPTBundle.message("original.url");
+//        if (originalUrl.equals(defaultUrl)) {
+//            oldUrlList.add(defaultUrl);
+//        } else {
+//            oldUrlList.add(originalUrl);
+//            oldUrlList.add(defaultUrl);
+//        }
         for (int i = 0; i < jsonArray.length(); i++) {
             String url = jsonArray.getString(i);
-            if (!urlList.contains(url)) {
-                urlList.add(url);
+            if (!oldUrlList.contains(url)) {
+                oldUrlList.add(url);
             }
         }
         // Notify subscribers about the change
