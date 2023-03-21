@@ -4,13 +4,13 @@
 
 ## [Unreleased]
 
-### Added
+## [1.1.0] - 2023-03-21
 
+### Added
 - Integration of third-party mirror websites for free usage.
 - Support for all future IDE builds [#12](https://github.com/LiLittleCat/intellij-chatgpt/pull/12)
 
 ### Fixed
-
 - Removed session token storage to resolve cookie setting issues [#16](https://github.com/LiLittleCat/intellij-chatgpt/issues/16)
 - Change the Tool Window name to `ChatGPT Tool` [#10](https://github.com/LiLittleCat/intellij-chatgpt/issues/10)
 
@@ -32,7 +32,8 @@
 ### Added
 - Support all JetBrains IDEs
 
-[Unreleased]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.0...v1.0.1
