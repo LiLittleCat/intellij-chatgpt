@@ -11,6 +11,26 @@
 This Jetbrains IDEs plugin integrates [ChatGPT](https://chat.openai.com/) and [other third-party mirror websites](https://github.com/LiLittleCat/awesome-free-chatgpt) of ChatGPT into JetBrains IDEs,
 providing a seamless experience for developers to interact with the ChatGPT AI model directly within their development environment.
 
+> ### 💡 Notice
+> Cannot log in to the official ChatGPT by Google account or Microsoft account is not caused by this plugin, but by the
+> official ChatGPT itself.
+>
+> See https://github.com/LiLittleCat/intellij-chatgpt/issues/7 and https://github.com/JetBrains/jcef/issues/14 for more
+> information.
+>
+> <details>
+> <summary>💡 Click to expand the Solution for this</summary>
+>
+> 1. Go to [https://chat.openai.com/chat](https://chat.openai.com/chat) and log in or sign up.
+> 2. Open dev tools.
+> 3. Open `Application` > `Cookies`.
+      [![pSSKdmR.png](https://s1.ax1x.com/2022/12/28/pSSKdmR.png)](https://imgse.com/i/pSSKdmR)
+> 4. Copy the value for `__Secure-next-auth.session-token` as settings value.
+      [![pSSK6pD.png](https://s1.ax1x.com/2022/12/28/pSSK6pD.png)](https://imgse.com/i/pSSK6pD)
+> 5. After you enter the session token, you need to restart the IDE because ChatGPT Tool Windows needs a restart, and
+     you won't need to log in until the session token is expired.
+> </details>
+
 ## Feature
 
 - 🚀 Easy to use, and interact with ChatGPT without leaving the IDE.
@@ -59,10 +79,3 @@ JCEF is supported in IntelliJ IDEA 2020.2 and later. See [JCEF](https://plugins.
     10. Fetch the URL list from [the author's other GitHub repository](https://github.com/LiLittleCat/awesome-free-chatgpt).
 4. Utilize third-party mirror websites.
    ![](/image/another.png)
-
-
-> **Notice**
->
-> Cannot log in to the official ChatGPT by Google account or Microsoft account is not caused by this plugin, but by the official ChatGPT itself.
->
-> See https://github.com/LiLittleCat/intellij-chatgpt/issues/7 and https://github.com/JetBrains/jcef/issues/14 for more information.

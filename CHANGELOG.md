@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Added
+- Bring session token setting for official website back. [#7 (comment)](https://github.com/LiLittleCat/intellij-chatgpt/issues/7#issuecomment-1487889326)
+
 ## [1.1.0] - 2023-03-21
 
 ### Added

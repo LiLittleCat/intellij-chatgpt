@@ -42,7 +42,7 @@ public class RefreshAction extends DumbAwareAction {
             // Store the index of the selected content
             int selectedIndex = contentManager.getIndexOfContent(selectedContent);
             // Remove the selected content
-            contentManager.removeContent(selectedContent, false);
+            contentManager.removeContent(selectedContent, true);
             // Iterate through all contents in the content manager
             for (int i = 0; i < contentManager.getContentCount(); i++) {
                 // Get the current content
@@ -51,7 +51,7 @@ public class RefreshAction extends DumbAwareAction {
                 // Get the tab name of the current content
                 String tabName = content.getTabName();
                 // Remove the current content
-                contentManager.removeContent(content, false);
+                contentManager.removeContent(content, true);
                 // Create a new content with the same tab name
                 Content browser = ContentFactory.SERVICE.getInstance().createContent(
                         new ChatGPTToolWindow(tabName).getContent(), tabName, false);

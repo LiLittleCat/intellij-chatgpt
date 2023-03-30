@@ -11,13 +11,12 @@ import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.*;
 import com.intellij.ui.components.JBLabel;
+import com.intellij.ui.components.JBScrollPane;
+import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.components.fields.ExtendableTextField;
 import com.intellij.ui.table.JBTable;
 import com.intellij.util.messages.MessageBusConnection;
-import com.intellij.util.ui.ColumnInfo;
-import com.intellij.util.ui.FormBuilder;
-import com.intellij.util.ui.JBInsets;
-import com.intellij.util.ui.ListTableModel;
+import com.intellij.util.ui.*;
 import com.lilittlecat.chatgpt.action.FetchURLAction;
 import com.lilittlecat.chatgpt.message.ChatGPTBundle;
 import org.jetbrains.annotations.Nls;
@@ -84,6 +83,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
     private Disposable myDisposable = Disposer.newDisposable();
 
     private JPanel myMainPanel;
+    private JBTextArea sessionToken = new JBTextArea();
     private JComboBox<String> defaultUrlComboBox;
 
     private ListTableModel<String> myModel;
@@ -140,7 +140,14 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
         JComponent table = createTable();
         table.setPreferredSize(new Dimension(500, 200));
         createComboBox();
+
+        sessionToken.setFont(UIUtil.getLabelFont());
+        sessionToken.setLineWrap(true);
+        JBScrollPane scrollPane = new JBScrollPane(sessionToken,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         myMainPanel = FormBuilder.createFormBuilder()
+                .addLabeledComponent(new JBLabel(ChatGPTBundle.message("setting.session.token.label")), scrollPane, 1, true)
                 .addLabeledComponent(new JBLabel(ChatGPTBundle.message("default.url.message")), defaultUrlComboBox, 1, false)
                 .addLabeledComponent(new SeparatorComponent(), new JPanel(), 1, false)
                 .addLabeledComponent(new JBLabel(ChatGPTBundle.message("url.list.message")), table, 3, true)
@@ -261,6 +268,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
         List<String> items = myModel.getItems();
         modified |= urlList.size() != items.size();
         modified |= !urlList.equals(items);
+        modified |= !instance.sessionToken.equals(sessionToken.getText());
         return modified;
     }
 
@@ -270,6 +278,7 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
         ChatGPTSettingsState instance = ChatGPTSettingsState.getInstance();
         instance.defaultUrl = Objects.requireNonNull(defaultUrlComboBox.getSelectedItem()).toString();
         instance.urlList = myModel.getItems();
+        instance.sessionToken = sessionToken.getText();
         // Refresh the UI after updating the settings
         refreshUI();
 //        instance.urlList.addAll(myModel.getItems());
@@ -284,5 +293,6 @@ public class ChatGPTSettingsConfigurable implements SearchableConfigurable {
             defaultUrlComboBox.addItem(s);
         }
         defaultUrlComboBox.setSelectedItem(instance.defaultUrl);
+        sessionToken.setText(instance.sessionToken);
     }
 }
