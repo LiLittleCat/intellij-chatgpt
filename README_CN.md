@@ -10,15 +10,15 @@
 
 一个将 [ChatGPT](https://chat.openai.com/) 和 [其他第三方镜像网站](https://github.com/LiLittleCat/awesome-free-chatgpt) 整合到 JetBrains IDEs 的插件。
 
-> ### 注意
+> ### 💡 注意
 > 无法使用 Google 账户或 Microsoft 账户登录官方 ChatGPT 不是由于此插件造成的，而是由官方 ChatGPT 本身造成的。
 >
 > 有关更多信息，请参阅 https://github.com/LiLittleCat/intellij-chatgpt/issues/7 和 https://github.com/JetBrains/jcef/issues/14 。
 >
 > <details>
-> <summary>点击展开解决方案</summary>
+> <summary>💡 点击展开解决方案</summary>
 >
-> 1. 进入 https://chat.openai.com/chat，登录或注册。
+> 1. 进入 [https://chat.openai.com/chat](https://chat.openai.com/chat)，登录或注册。
 > 2. 打开开发工具。
 > 3. 打开 `Application` > `Cookies`。
      [![pSSKdmR.png](https://s1.ax1x.com/2022/12/28/pSSKdmR.png)](https://imgse.com/i/pSSKdmR)

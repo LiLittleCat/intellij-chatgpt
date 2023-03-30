@@ -11,7 +11,7 @@
 This Jetbrains IDEs plugin integrates [ChatGPT](https://chat.openai.com/) and [other third-party mirror websites](https://github.com/LiLittleCat/awesome-free-chatgpt) of ChatGPT into JetBrains IDEs,
 providing a seamless experience for developers to interact with the ChatGPT AI model directly within their development environment.
 
-> ### **Notice**
+> ### 💡 Notice
 > Cannot log in to the official ChatGPT by Google account or Microsoft account is not caused by this plugin, but by the
 > official ChatGPT itself.
 >
@@ -19,9 +19,9 @@ providing a seamless experience for developers to interact with the ChatGPT AI m
 > information.
 >
 > <details>
-> <summary>Click to expand the Solution for this</summary>
+> <summary>💡 Click to expand the Solution for this</summary>
 >
-> 1. Go to https://chat.openai.com/chat and log in or sign up.
+> 1. Go to [https://chat.openai.com/chat](https://chat.openai.com/chat) and log in or sign up.
 > 2. Open dev tools.
 > 3. Open `Application` > `Cookies`.
       [![pSSKdmR.png](https://s1.ax1x.com/2022/12/28/pSSKdmR.png)](https://imgse.com/i/pSSKdmR)
