@@ -10,6 +10,23 @@
 
 一个将 [ChatGPT](https://chat.openai.com/) 和 [其他第三方镜像网站](https://github.com/LiLittleCat/awesome-free-chatgpt) 整合到 JetBrains IDEs 的插件。
 
+> ### 注意
+> 无法使用 Google 账户或 Microsoft 账户登录官方 ChatGPT 不是由于此插件造成的，而是由官方 ChatGPT 本身造成的。
+>
+> 有关更多信息，请参阅 https://github.com/LiLittleCat/intellij-chatgpt/issues/7 和 https://github.com/JetBrains/jcef/issues/14 。
+>
+> <details>
+> <summary>点击展开解决方案</summary>
+>
+> 1. 进入 https://chat.openai.com/chat，登录或注册。
+> 2. 打开开发工具。
+> 3. 打开 `Application` > `Cookies`。
+     [![pSSKdmR.png](https://s1.ax1x.com/2022/12/28/pSSKdmR.png)](https://imgse.com/i/pSSKdmR)
+> 4. 复制 `__Secure-next-auth.session-token` 的值作为设置值。
+     [![pSSK6pD.png](https://s1.ax1x.com/2022/12/28/pSSK6pD.png)](https://imgse.com/i/pSSK6pD)
+> 5. 输入会话令牌后，你需要重启 IDE，因为 ChatGPT 工具 Windows 需要重启，在会话令牌过期之前，你不需要登录。
+> </details>
+
 ## 功能
 
 - 🚀 易于使用，无需离开 IDE 即可与 ChatGPT 交互。
@@ -57,9 +74,3 @@ JCEF 支持 IntelliJ IDEA 2020.2 及更高版本。有关更多信息，请参�
     10. 从 [作者的另一个 GitHub 仓库](https://github.com/LiLittleCat/awesome-free-chatgpt) 获取 URL 列表。
 4. 使用第三方镜像网站。
    ![](/image/another.png)
-
-> **注意**
->
-> 无法使用 Google 账户或 Microsoft 账户登录官方 ChatGPT 不是由于此插件造成的，而是由官方 ChatGPT 本身造成的。
->
-> 有关更多信息，请参阅 https://github.com/LiLittleCat/intellij-chatgpt/issues/7 和 https://github.com/JetBrains/jcef/issues/14 。
