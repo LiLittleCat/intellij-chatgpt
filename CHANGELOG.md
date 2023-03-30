@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [1.1.1] - 2023-03-30
+
 ### Added
 - Bring session token setting for official website back. [#7 (comment)](https://github.com/LiLittleCat/intellij-chatgpt/issues/7#issuecomment-1487889326)
 
@@ -35,7 +37,8 @@
 ### Added
 - Support all JetBrains IDEs
 
-[Unreleased]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/LiLittleCat/intellij-chatgpt/compare/v1.0.1...v1.0.2
