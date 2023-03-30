@@ -24,7 +24,8 @@ import java.util.ResourceBundle;
         storages = @Storage("ChatGPTSettingsState.xml")
 )
 public class ChatGPTSettingsState implements PersistentStateComponent<ChatGPTSettingsState> {
-//    public String sessionToken = "";
+
+    public String sessionToken = "";
 
     public String defaultUrl = ChatGPTBundle.message("default.url");
 
@@ -66,6 +67,14 @@ public class ChatGPTSettingsState implements PersistentStateComponent<ChatGPTSet
 
     public void setUrlList(List<String> urlList) {
         this.urlList = urlList;
+    }
+
+    public String getSessionToken() {
+        return sessionToken;
+    }
+
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
     }
 
     public static ChatGPTSettingsState getInstance() {
